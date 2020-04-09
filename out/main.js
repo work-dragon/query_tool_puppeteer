@@ -57,10 +57,16 @@ var waitForSelectorSearchInput = '#root > div > section > section > main > div >
 var deviceIdInputSearch = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper > input';
 var deviceIdText = '1000028060';
 var searchBtn = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > button';
-var waitForSelectorSearchContent = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr';
+// const waitForSelectorSearchContentTable = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr'
+var waitForSelectorSearchContentTable = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody ';
+var searchContent = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr';
 var exportDataBtn = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div:nth-child(1) > button > a';
+//Sharer
 var viewSharerLimit = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(16) > button';
-var viewSharerDialogDiv = '';
+var viewSharerDialogDiv = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-body > div > div > div > div > div > div > div > div > div.ant-table-placeholder';
+var sharerDialogContent = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-body > div > div > div > div > div > div > div > div > div.ant-table-placeholder > div > p';
+var sharerDialogAccept = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-btns > button';
+//DeviceStatus
 var viewDeviceStatus = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(17) > button > span';
 var viewonoff = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(18) > button > span';
 // DeviceonoffLog
@@ -91,7 +97,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                 user_Info = _a.sent();
                 user_Info === undefined || null ? console.log('无用户信息') : console.log("user_Info --> " + user_Info); //打印userInfo
                 navInfo = new navInfo_1.NavInfo();
-                return [4 /*yield*/, navInfo.navDeviceSearch(page, waitForSelectorSearchInput, deviceIdInputSearch, deviceIdText, searchBtn, waitForSelectorSearchContent, waitForSelectorSearchContent, exportDataBtn, viewSharerLimit, viewSharerDialogDiv, viewDeviceStatus, viewonoff, waitForSelectorONOFFTable, onoffContent, exportONOFFContnetBtn, deleteONOFFContnetDiv)
+                return [4 /*yield*/, navInfo.navDeviceSearch(page, waitForSelectorSearchInput, deviceIdInputSearch, deviceIdText, searchBtn, waitForSelectorSearchContentTable, searchContent, exportDataBtn, viewSharerLimit, viewSharerDialogDiv, viewDeviceStatus, viewonoff)
                     // 退出登录
                 ];
             case 6:

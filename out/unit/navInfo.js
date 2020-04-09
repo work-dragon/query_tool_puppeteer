@@ -44,16 +44,17 @@ var NavInfo = /** @class */ (function () {
     deviceIdInputSearch, //deviceID的输入框
     deviceIdText, //输入框的内容
     searchBtn, //查询的button
-    waitForSelectorSearchContent, //
+    // waitForSelectorSearchContent: string,   //
     searchContent, //
     exportDataBtn, //导出button
     viewSharerLimit, //查看被分享人+权限 button
     viewSharerDialogDiv, //被分享人+权限 dialog 的div
+    sharerDialogAccept, //确认sharerDialog
     viewDeviceStatus, //查看当前设备状态 button
     viewONOFF, //查看上下线纪录 button
-    waitForSelectorONOFFTable, //等待，直到“相关”元素呈现
+    // waitForSelectorONOFFTable: string,      //等待，直到“相关”元素呈现
     onoffContent, //设备上下线内容
-    exportONOFFContnetBtn, //导出上下线按钮
+    // exportONOFFContnetBtn: string,          //导出上下线按钮
     deleteONOFFContnetDiv) {
         return __awaiter(this, void 0, void 0, function () {
             var deviceId_Info, deviceonofflog;
@@ -68,47 +69,54 @@ var NavInfo = /** @class */ (function () {
                         return [4 /*yield*/, page.click(searchBtn)];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, page.waitForSelector(waitForSelectorSearchContent)];
+                        return [4 /*yield*/, page.waitForSelector(waitForSelector)];
                     case 4:
                         _a.sent();
                         return [4 /*yield*/, page.$$eval(searchContent, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
                     case 5:
                         deviceId_Info = _a.sent();
                         deviceId_Info ? console.log("deviceId_Info --> " + deviceId_Info) : console.log('deviceid -- 设备信息查询失败');
-                        return [4 /*yield*/, page.click(exportDataBtn).then(function () {
-                                try {
-                                    console.log('deviceid_Info -- 设备信息 -- 导出数据成功');
-                                }
-                                catch (error) {
-                                    console.log("deviceid_Info -- \u8BBE\u5907\u4FE1\u606F -- \u5BFC\u51FA\u6570\u636E\u5931\u8D25" + error);
-                                }
-                            })];
-                    case 6:
-                        _a.sent(); //导出查询数据
+                        // await page.click(exportDataBtn).then(() => {
+                        //     try {
+                        //         console.log('deviceid_Info -- 设备信息 -- 导出数据成功')
+                        //     } catch (error) {
+                        //         console.log(`deviceid_Info -- 设备信息 -- 导出数据失败${error}`)
+                        //     }
+                        // }); //导出查询数据
                         //查看被分享人+权限
                         return [4 /*yield*/, page.click(viewSharerLimit)];
-                    case 7:
+                    case 6:
+                        // await page.click(exportDataBtn).then(() => {
+                        //     try {
+                        //         console.log('deviceid_Info -- 设备信息 -- 导出数据成功')
+                        //     } catch (error) {
+                        //         console.log(`deviceid_Info -- 设备信息 -- 导出数据失败${error}`)
+                        //     }
+                        // }); //导出查询数据
                         //查看被分享人+权限
                         _a.sent();
-                        return [4 /*yield*/, page.waitForSelector(viewSharerDialogDiv)
-                            // await page.
+                        return [4 /*yield*/, page.waitForSelector(waitForSelector)];
+                    case 7:
+                        _a.sent();
+                        return [4 /*yield*/, page.$$eval(viewSharerDialogDiv, function (eles) { return eles.map(function (ele) { return console.log(ele.textContent); }); })];
+                    case 8:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(sharerDialogAccept)
                             // await page.on('dialog', async dialog => {
                             //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
                             //     await dialog.accept();
                             // });
                             //当前设备状态
                         ];
-                    case 8:
+                    case 9:
                         _a.sent();
-                        // await page.
                         // await page.on('dialog', async dialog => {
                         //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
                         //     await dialog.accept();
                         // });
                         //当前设备状态
                         return [4 /*yield*/, page.click(viewDeviceStatus)];
-                    case 9:
-                        // await page.
+                    case 10:
                         // await page.on('dialog', async dialog => {
                         //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
                         //     await dialog.accept();
@@ -121,7 +129,7 @@ var NavInfo = /** @class */ (function () {
                         // });
                         //上下线纪录
                         return [4 /*yield*/, page.click(viewONOFF)];
-                    case 10:
+                    case 11:
                         // await page.on('dialog', async dialog => {
                         //     console.log(`当前设备状态 params 信息 ---> ${dialog.message()}`);
                         //     await dialog.accept();
@@ -129,7 +137,7 @@ var NavInfo = /** @class */ (function () {
                         //上下线纪录
                         _a.sent();
                         deviceonofflog = new deviceonofflog_1.Deviceonofflog();
-                        deviceonofflog.onoffLog(page, waitForSelectorONOFFTable, onoffContent, exportONOFFContnetBtn, deleteONOFFContnetDiv);
+                        deviceonofflog.onoffLog(page, waitForSelector, onoffContent, exportDataBtn, deleteONOFFContnetDiv);
                         return [2 /*return*/];
                 }
             });

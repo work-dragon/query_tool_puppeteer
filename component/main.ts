@@ -22,11 +22,18 @@ const waitForSelectorSearchInput = '#root > div > section > section > main > div
 const deviceIdInputSearch = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper > input';
 const deviceIdText = '1000028060'
 const searchBtn = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > button'
-const waitForSelectorSearchContent = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr'
+// const waitForSelectorSearchContentTable = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr'
+const waitForSelectorSearchContentTable = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody '
+const searchContent = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr'
 const exportDataBtn = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div:nth-child(1) > button > a'
 
+//Sharer
 const viewSharerLimit = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(16) > button'
-const viewSharerDialogDiv = '';
+const viewSharerDialogDiv = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-body > div > div > div > div > div > div > div > div > div.ant-table-placeholder';
+const sharerDialogContent = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-body > div > div > div > div > div > div > div > div > div.ant-table-placeholder > div > p';
+const sharerDialogAccept = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-btns > button'
+
+//DeviceStatus
 const viewDeviceStatus = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(17) > button > span'
 const viewonoff = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(18) > button > span'
 
@@ -52,21 +59,21 @@ const run = async () => {
     let navInfo = new NavInfo()
     await navInfo.navDeviceSearch(
         page,
-        waitForSelectorSearchInput,
+        waitForSelectorSearchInput, 
         deviceIdInputSearch,
         deviceIdText,
         searchBtn,
-        waitForSelectorSearchContent,
-        waitForSelectorSearchContent,
+        waitForSelectorSearchContentTable,
+        searchContent,
         exportDataBtn,
         viewSharerLimit,
         viewSharerDialogDiv,
         viewDeviceStatus,
         viewonoff,
-        waitForSelectorONOFFTable,
-        onoffContent,
-        exportONOFFContnetBtn,
-        deleteONOFFContnetDiv,
+        // waitForSelectorONOFFTable,
+        // onoffContent,
+        // exportONOFFContnetBtn,
+        // deleteONOFFContnetDiv,
     )
 
 
