@@ -60,6 +60,7 @@ var searchBtn = '#root > div > section > section > main > div > div.ant-tabs-con
 var waitForSelectorSearchContent = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr';
 var exportDataBtn = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div:nth-child(1) > button > a';
 var viewSharerLimit = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(16) > button';
+var viewSharerDialogDiv = '';
 var viewDeviceStatus = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(17) > button > span';
 var viewonoff = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(18) > button > span';
 // DeviceonoffLog
@@ -90,7 +91,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                 user_Info = _a.sent();
                 user_Info === undefined || null ? console.log('无用户信息') : console.log("user_Info --> " + user_Info); //打印userInfo
                 navInfo = new navInfo_1.NavInfo();
-                return [4 /*yield*/, navInfo.navDeviceSearch(page, waitForSelectorSearchInput, deviceIdInputSearch, deviceIdText, searchBtn, waitForSelectorSearchContent, waitForSelectorSearchContent, exportDataBtn, viewSharerLimit, viewDeviceStatus, viewonoff, waitForSelectorONOFFTable, onoffContent, exportONOFFContnetBtn, deleteONOFFContnetDiv)
+                return [4 /*yield*/, navInfo.navDeviceSearch(page, waitForSelectorSearchInput, deviceIdInputSearch, deviceIdText, searchBtn, waitForSelectorSearchContent, waitForSelectorSearchContent, exportDataBtn, viewSharerLimit, viewSharerDialogDiv, viewDeviceStatus, viewonoff, waitForSelectorONOFFTable, onoffContent, exportONOFFContnetBtn, deleteONOFFContnetDiv)
                     // 退出登录
                 ];
             case 6:

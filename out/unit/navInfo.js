@@ -90,25 +90,25 @@ var NavInfo = /** @class */ (function () {
                     case 7:
                         //查看被分享人+权限
                         _a.sent();
-                        return [4 /*yield*/, page.waitForSelector(viewSharerDialogDiv)];
-                    case 8:
-                        _a.sent();
-                        return [4 /*yield*/, page.
+                        return [4 /*yield*/, page.waitForSelector(viewSharerDialogDiv)
+                            // await page.
                             // await page.on('dialog', async dialog => {
                             //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
                             //     await dialog.accept();
                             // });
                             //当前设备状态
                         ];
-                    case 9:
+                    case 8:
                         _a.sent();
+                        // await page.
                         // await page.on('dialog', async dialog => {
                         //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
                         //     await dialog.accept();
                         // });
                         //当前设备状态
                         return [4 /*yield*/, page.click(viewDeviceStatus)];
-                    case 10:
+                    case 9:
+                        // await page.
                         // await page.on('dialog', async dialog => {
                         //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
                         //     await dialog.accept();
@@ -121,7 +121,7 @@ var NavInfo = /** @class */ (function () {
                         // });
                         //上下线纪录
                         return [4 /*yield*/, page.click(viewONOFF)];
-                    case 11:
+                    case 10:
                         // await page.on('dialog', async dialog => {
                         //     console.log(`当前设备状态 params 信息 ---> ${dialog.message()}`);
                         //     await dialog.accept();
