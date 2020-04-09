@@ -2,8 +2,7 @@ const puppeteer = require('puppeteer');
 
 let browser;
 let page;
-let account = 'gavin.nie@coolkit.cn';
-let psw = '123456'
+
 
 
 const test = async () => {

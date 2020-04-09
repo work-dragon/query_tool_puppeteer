@@ -2,8 +2,7 @@ const puppeteer = require('puppeteer');
 
 let browser;
 let page;
-let account = 'gavin.nie@coolkit.cn';
-let psw = '123456'
+
 
 //生命周期
 beforeAll(async () => {
