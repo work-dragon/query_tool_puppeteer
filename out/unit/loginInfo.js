@@ -35,11 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var urlInfo_1 = __importDefault(require("./urlInfo"));
+var config_1 = require("./config");
 var LoginInfo = /** @class */ (function () {
     function LoginInfo() {
     }
@@ -50,7 +47,7 @@ var LoginInfo = /** @class */ (function () {
                 switch (_b.label) {
                     case 0: 
                     // 跳转网站
-                    return [4 /*yield*/, page.goto(urlInfo_1.default.url).then(function () {
+                    return [4 /*yield*/, page.goto(config_1.config.url).then(function () {
                             try {
                                 console.log('成功跳转指定网站');
                             }
@@ -70,11 +67,11 @@ var LoginInfo = /** @class */ (function () {
                         // 等待，直到“waitForSelector”元素呈现
                         _b.sent();
                         //获取输入框属性并输入账号和密码
-                        return [4 /*yield*/, page.type(accountInput, account, { delay: 100 })];
+                        return [4 /*yield*/, page.type(accountInput, account, { delay: 50 })];
                     case 3:
                         //获取输入框属性并输入账号和密码
                         _b.sent();
-                        return [4 /*yield*/, page.type(passwordInput, password, { delay: 100 })
+                        return [4 /*yield*/, page.type(passwordInput, password, { delay: 50 })
                             //回车登录 或 点击登录btn
                         ];
                     case 4:

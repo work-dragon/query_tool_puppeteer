@@ -39,88 +39,85 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var puppeteer_1 = require("puppeteer");
 var loginInfo_1 = require("./unit/loginInfo");
 var navInfo_1 = require("./unit/navInfo");
-//login
-var waitForLoginDOM = '#root > div > div > div:nth-child(2)';
-var accountInput = '#root > div > div > div:nth-child(2) > span:nth-child(1) > input';
-var passwordInput = '#root > div > div > div:nth-child(2) > span.ant-input-password.ant-input-password-large.ant-input-affix-wrapper.ant-input-affix-wrapper-lg > input';
-var account = 'gavin.nie@coolkit.cn';
-var password = '123456';
-var loginBtn = '#root > div > div > div:nth-child(2) > button';
-var pressEnter = 'Enter';
-//userInfo
-var userInfo___7ZPSO = '#root > div > section > section > header > div > div > span.userInfo___7ZPSO';
-/**
- * NavInfo
- */
-//NavDeviceInfoSearch
-var waitForSelectorSearchInput = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper';
-var deviceIdInputSearch = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper > input';
-var deviceIdText = '1000028060';
-var searchBtn = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > button';
-// const waitForSelectorSearchContentTable = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr'
-var waitForSelectorSearchContentTable = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody ';
-var searchContent = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr';
-var exportDataBtn = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div:nth-child(1) > button > a';
-//Sharer
-var viewSharerLimit = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(16) > button';
-var viewSharerDialogDiv = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-body > div > div > div > div > div > div > div > div > div.ant-table-placeholder';
-var sharerDialogContent = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-body > div > div > div > div > div > div > div > div > div.ant-table-placeholder > div > p';
-var sharerDialogAccept = 'body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > div.ant-modal-confirm-btns > button';
-//DeviceStatus
-var viewDeviceStatus = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(17) > button > span';
-var viewonoff = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(18) > button > span';
-// DeviceonoffLog
-var waitForSelectorONOFFTable = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody';
-var onoffContent = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr';
-var exportONOFFContnetBtn = '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div:nth-child(1) > button > a';
-var deleteONOFFContnetDiv = '#root > div > section > section > main > div > div.ant-tabs-bar.ant-tabs-top-bar.ant-tabs-card-bar > div > div > div > div > div:nth-child(1) > div.ant-tabs-tab-active.ant-tabs-tab > div > i > svg';
-var logoutBtn = '#root > div > section > section > header > div > div > button';
+var config_1 = require("./unit/config");
+var element_1 = require("./dom/element");
+var deviceonofflog_1 = require("./unit/deviceonofflog");
 var run = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var browser, page, loginInfo, user_Info, navInfo, error_1;
+    var loginInfo, navInfo, deviceonofflog, browser, page, user_Info, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, puppeteer_1.launch({ headless: false, defaultViewport: { width: 1600, height: 868 } })];
+            case 0:
+                loginInfo = new loginInfo_1.LoginInfo();
+                navInfo = new navInfo_1.NavInfo();
+                deviceonofflog = new deviceonofflog_1.Deviceonofflog();
+                return [4 /*yield*/, puppeteer_1.launch({ headless: false, defaultViewport: { width: 1600, height: 868 }, timeout: 30000 })];
             case 1:
                 browser = _a.sent();
                 return [4 /*yield*/, browser.newPage()];
             case 2:
                 page = _a.sent();
-                loginInfo = new loginInfo_1.LoginInfo();
-                return [4 /*yield*/, loginInfo.userInfo(page, waitForLoginDOM, accountInput, passwordInput, account, password, loginBtn, pressEnter)];
+                return [4 /*yield*/, page.waitFor(3 * 1000)];
             case 3:
                 _a.sent();
-                return [4 /*yield*/, page.waitForSelector(userInfo___7ZPSO)];
+                //sing in
+                return [4 /*yield*/, loginInfo.userInfo(page, element_1.elements.waitForSingInDOM, element_1.elements.accountInput, element_1.elements.passwordInput, config_1.config.account, config_1.config.password, element_1.elements.signInBtn, element_1.elements.pressEnter)
+                    //get userInfo
+                ];
             case 4:
+                //sing in
                 _a.sent();
-                return [4 /*yield*/, page.$eval(userInfo___7ZPSO, function (ele) { return ele.textContent; })];
+                //get userInfo
+                return [4 /*yield*/, page.waitForSelector(element_1.elements.userInfo___7ZPSO)];
             case 5:
+                //get userInfo
+                _a.sent();
+                return [4 /*yield*/, page.$eval(element_1.elements.userInfo___7ZPSO, function (ele) { return ele.textContent; })];
+            case 6:
                 user_Info = _a.sent();
-                user_Info === undefined || null ? console.log('无用户信息') : console.log("user_Info --> " + user_Info); //打印userInfo
-                navInfo = new navInfo_1.NavInfo();
-                return [4 /*yield*/, navInfo.navDeviceSearch(page, waitForSelectorSearchInput, deviceIdInputSearch, deviceIdText, searchBtn, waitForSelectorSearchContentTable, searchContent, exportDataBtn, viewSharerLimit, viewSharerDialogDiv, viewDeviceStatus, viewonoff)
+                user_Info === undefined || null ? console.log('无用户信息') : console.log("user_Info --> " + user_Info);
+                //缩小Nav
+                return [4 /*yield*/, page.click(element_1.elements.narrowAndExpandNav)];
+            case 7:
+                //缩小Nav
+                _a.sent();
+                //NavDeviceInfoSearch
+                return [4 /*yield*/, navInfo.navDeviceSearch(page, element_1.elements.navinfoSelelctor, element_1.elements.waitForSelectorSearchInput, element_1.elements.deviceIdInputSearchSelelctor, config_1.config.deviceIdText, element_1.elements.searchBtn, element_1.elements.waitForSelectorSearchContentTbody, element_1.elements.exportDataBtn)
+                    //扩大Nav
+                ];
+            case 8:
+                //NavDeviceInfoSearch
+                _a.sent();
+                //扩大Nav
+                return [4 /*yield*/, page.click(element_1.elements.narrowAndExpandNav)];
+            case 9:
+                //扩大Nav
+                _a.sent();
+                //点击上下线记录查询
+                return [4 /*yield*/, deviceonofflog.onClickLionoffLog(page, element_1.elements.onClickONOFFLiSelelctor, element_1.elements.onoffLogdeviceIdInputSearchSelelctor, config_1.config.deviceIdText, element_1.elements.clickLeftSelectionTimeSelelctor, element_1.elements.leftSelectionTimeTextSelelctor, element_1.elements.rightSelectionTimeTextSelelctor, element_1.elements.rightSelectionTimeTextSelelctor, element_1.elements.searchBtn, element_1.elements.waitForSelectorONOFFTbody, element_1.elements.exportONOFFContnetBtn, element_1.elements.deleteONOFFContnetDiv)
                     // 退出登录
                 ];
-            case 6:
+            case 10:
+                //点击上下线记录查询
                 _a.sent();
-                _a.label = 7;
-            case 7:
-                _a.trys.push([7, 9, , 10]);
-                return [4 /*yield*/, page.click(logoutBtn, { delay: 1000 })];
-            case 8:
+                _a.label = 11;
+            case 11:
+                _a.trys.push([11, 13, , 14]);
+                return [4 /*yield*/, page.click(element_1.elements.signOutBtn, { delay: 1000 })];
+            case 12:
                 _a.sent();
-                return [3 /*break*/, 10];
-            case 9:
+                return [3 /*break*/, 14];
+            case 13:
                 error_1 = _a.sent();
                 console.log("\u9000\u51FA\u767B\u5F55 --> " + error_1);
-                return [3 /*break*/, 10];
-            case 10: 
+                return [3 /*break*/, 14];
+            case 14: 
             //等待两秒后关闭浏览器
             return [4 /*yield*/, page.waitFor(2 * 1000)];
-            case 11:
+            case 15:
                 //等待两秒后关闭浏览器
                 _a.sent();
                 return [4 /*yield*/, browser.close().then(function () { return console.log('关闭浏览器'); })];
-            case 12:
+            case 16:
                 _a.sent();
                 return [2 /*return*/];
         }

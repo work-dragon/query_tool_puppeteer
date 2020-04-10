@@ -36,117 +36,73 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var deviceonofflog_1 = require("./deviceonofflog");
 var NavInfo = /** @class */ (function () {
     function NavInfo() {
     }
-    NavInfo.prototype.navDeviceSearch = function (page, waitForSelector, // 等待，直到“相关”元素呈现
-    deviceIdInputSearch, //deviceID的输入框
+    NavInfo.prototype.navDeviceSearch = function (page, navinfoSlelctor, //导航栏中的ul
+    waitForSelectorInput, // 等待，直到 输入框相关 元素呈现
+    deviceIdInputSearchSlelctor, //deviceID的输入框
     deviceIdText, //输入框的内容
     searchBtn, //查询的button
-    // waitForSelectorSearchContent: string,   //
-    searchContent, //
+    waitForSelectorSearchContentTbody, //等待，直到 搜索内容的相关 元素呈现
     exportDataBtn, //导出button
-    viewSharerLimit, //查看被分享人+权限 button
-    viewSharerDialogDiv, //被分享人+权限 dialog 的div
-    sharerDialogAccept, //确认sharerDialog
-    viewDeviceStatus, //查看当前设备状态 button
-    viewONOFF, //查看上下线纪录 button
-    // waitForSelectorONOFFTable: string,      //等待，直到“相关”元素呈现
-    onoffContent, //设备上下线内容
-    // exportONOFFContnetBtn: string,          //导出上下线按钮
-    deleteONOFFContnetDiv) {
+    viewonoffBtn, //查看上下线纪录 button
+    waitForSelectorONOFFTbody, //等待，直到“相关”元素呈现
+    // onoffContent: string,                   //设备上下线内容
+    exportONOFFContnetBtn, //导出上下线按钮
+    deleteONOFFContnetDiv, //删除tab栏的div
+    //传入 viewSharerLimitBtn 下列相关的Sharer 都需要传
+    viewSharerLimitBtn, //查看被分享人+权限 button
+    viewSharerDialogDiv, //点击被分享人+权限 dialog 
+    sharerDialogContent, //被分享人+权限 dialog内容
+    sharerDialogAccept, //被分享人+权限 确认 -- Dialog
+    //传入 viewDeviceStatusBtn 下列相关的DeviceStatus 都需要传
+    viewDeviceStatusBtn, //查看当前设备状态 button
+    viewDeviceStatusDialogDiv, //当前设备状态的 dialog 
+    deviceStatusDialogContent, //当前设备状态 dialog内容
+    deviceStatusDialogAccept) {
         return __awaiter(this, void 0, void 0, function () {
-            var deviceId_Info, deviceonofflog;
+            var nav_Info, deviceId_Info_tbody;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, page.waitForSelector(waitForSelector)];
+                    case 0: return [4 /*yield*/, page.$$eval(navinfoSlelctor, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, page.type(deviceIdInputSearch, deviceIdText, { delay: 100 })];
+                        nav_Info = _a.sent();
+                        nav_Info ? console.log("nav_Info --> " + nav_Info) : console.log('nav_Info -- 获取导航栏信息失败');
+                        //等待 搜索框元素 出现后输入内容并点击
+                        return [4 /*yield*/, page.waitForSelector(waitForSelectorInput)];
                     case 2:
+                        //等待 搜索框元素 出现后输入内容并点击
                         _a.sent();
-                        return [4 /*yield*/, page.click(searchBtn)];
+                        return [4 /*yield*/, page.type(deviceIdInputSearchSlelctor, deviceIdText, { delay: 100 })];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, page.waitForSelector(waitForSelector)];
+                        return [4 /*yield*/, page.click(searchBtn)];
                     case 4:
                         _a.sent();
-                        return [4 /*yield*/, page.$$eval(searchContent, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
+                        //等待 搜索内容table元素 出现 获取搜索内容 并打印
+                        return [4 /*yield*/, page.waitForSelector(waitForSelectorSearchContentTbody)];
                     case 5:
-                        deviceId_Info = _a.sent();
-                        deviceId_Info ? console.log("deviceId_Info --> " + deviceId_Info) : console.log('deviceid -- 设备信息查询失败');
-                        // await page.click(exportDataBtn).then(() => {
-                        //     try {
-                        //         console.log('deviceid_Info -- 设备信息 -- 导出数据成功')
-                        //     } catch (error) {
-                        //         console.log(`deviceid_Info -- 设备信息 -- 导出数据失败${error}`)
-                        //     }
-                        // }); //导出查询数据
-                        //查看被分享人+权限
-                        return [4 /*yield*/, page.click(viewSharerLimit)];
+                        //等待 搜索内容table元素 出现 获取搜索内容 并打印
+                        _a.sent();
+                        return [4 /*yield*/, page.$$eval(waitForSelectorSearchContentTbody, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
                     case 6:
-                        // await page.click(exportDataBtn).then(() => {
-                        //     try {
-                        //         console.log('deviceid_Info -- 设备信息 -- 导出数据成功')
-                        //     } catch (error) {
-                        //         console.log(`deviceid_Info -- 设备信息 -- 导出数据失败${error}`)
-                        //     }
-                        // }); //导出查询数据
-                        //查看被分享人+权限
-                        _a.sent();
-                        return [4 /*yield*/, page.waitForSelector(waitForSelector)];
+                        deviceId_Info_tbody = _a.sent();
+                        deviceId_Info_tbody ? console.log("deviceId_Info_tbody --> " + deviceId_Info_tbody) : console.log('deviceId_Info_tbody -- 设备信息查询失败');
+                        //导出查询数据
+                        return [4 /*yield*/, page.click(exportDataBtn, { delay: 1500 }).then(function () {
+                                try {
+                                    console.log('deviceid_Info_tbody -- 设备信息 -- 导出数据成功');
+                                }
+                                catch (error) {
+                                    console.log("deviceid_Info_tbody -- \u8BBE\u5907\u4FE1\u606F -- \u5BFC\u51FA\u6570\u636E\u5931\u8D25" + error);
+                                }
+                            })];
                     case 7:
+                        //导出查询数据
                         _a.sent();
-                        return [4 /*yield*/, page.$$eval(viewSharerDialogDiv, function (eles) { return eles.map(function (ele) { return console.log(ele.textContent); }); })];
-                    case 8:
-                        _a.sent();
-                        return [4 /*yield*/, page.click(sharerDialogAccept)
-                            // await page.on('dialog', async dialog => {
-                            //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
-                            //     await dialog.accept();
-                            // });
-                            //当前设备状态
-                        ];
-                    case 9:
-                        _a.sent();
-                        // await page.on('dialog', async dialog => {
-                        //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
-                        //     await dialog.accept();
-                        // });
-                        //当前设备状态
-                        return [4 /*yield*/, page.click(viewDeviceStatus)];
-                    case 10:
-                        // await page.on('dialog', async dialog => {
-                        //     console.log(`打印被分享人+权限dialog信息 ---> ${dialog.message()}`);
-                        //     await dialog.accept();
-                        // });
-                        //当前设备状态
-                        _a.sent();
-                        // await page.on('dialog', async dialog => {
-                        //     console.log(`当前设备状态 params 信息 ---> ${dialog.message()}`);
-                        //     await dialog.accept();
-                        // });
-                        //上下线纪录
-                        return [4 /*yield*/, page.click(viewONOFF)];
-                    case 11:
-                        // await page.on('dialog', async dialog => {
-                        //     console.log(`当前设备状态 params 信息 ---> ${dialog.message()}`);
-                        //     await dialog.accept();
-                        // });
-                        //上下线纪录
-                        _a.sent();
-                        deviceonofflog = new deviceonofflog_1.Deviceonofflog();
-                        deviceonofflog.onoffLog(page, waitForSelector, onoffContent, exportDataBtn, deleteONOFFContnetDiv);
                         return [2 /*return*/];
                 }
-            });
-        });
-    };
-    NavInfo.prototype.navONOFFSearch = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
             });
         });
     };

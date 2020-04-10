@@ -39,18 +39,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Deviceonofflog = /** @class */ (function () {
     function Deviceonofflog() {
     }
-    Deviceonofflog.prototype.onoffLog = function (page, waitForSelectorONOFFTable, onoffContent, exportONOFFContnetBtn, deleteONOFFContnetDiv) {
+    //无点击是从设备信息查询的table中点击进入
+    Deviceonofflog.prototype.notClickLionoffLog = function (page, viewonoffBtn, waitForSelectorONOFFTbody, 
+    // onoffContent: string,
+    exportONOFFContnetBtn, deleteONOFFContnetDiv) {
         return __awaiter(this, void 0, void 0, function () {
             var onoff_Info;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, page.waitForSelector(waitForSelectorONOFFTable)];
+                    case 0:
+                        console.log('1111');
+                        return [4 /*yield*/, page.waitForSelector(viewonoffBtn)];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, page.$$eval(onoffContent, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
+                        return [4 /*yield*/, page.click(viewonoffBtn)];
                     case 2:
+                        _a.sent();
+                        console.log('222');
+                        return [4 /*yield*/, page.waitForSelector(waitForSelectorONOFFTbody)];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, page.$$eval(waitForSelectorONOFFTbody, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
+                    case 4:
                         onoff_Info = _a.sent();
-                        onoff_Info ? console.log("Deviceonofflog --> " + onoff_Info) : console.log('onoff_Info --查询不到设备上下线记录');
+                        onoff_Info ? console.log("onoff_Info --> " + onoff_Info) : console.log('onoff_Info --查询不到设备上下线记录');
+                        return [4 /*yield*/, page.waitForSelector(exportONOFFContnetBtn)];
+                    case 5:
+                        _a.sent();
                         return [4 /*yield*/, page.click(exportONOFFContnetBtn, { delay: 1000 }).then(function () {
                                 try {
                                     console.log('Deviceonofflog -- 设备信息 -- 导出数据成功');
@@ -59,10 +74,111 @@ var Deviceonofflog = /** @class */ (function () {
                                     console.log("Deviceonofflog -- \u8BBE\u5907\u4FE1\u606F -- \u5BFC\u51FA\u6570\u636E\u5931\u8D25" + error);
                                 }
                             })];
-                    case 3:
+                    case 6:
                         _a.sent(); //导出查询数据
                         return [4 /*yield*/, page.click(deleteONOFFContnetDiv, { delay: 1000 })];
+                    case 7:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    //从导航栏中点击进入
+    Deviceonofflog.prototype.onClickLionoffLog = function (page, onClickONOFFLiSelelctor, onoffLogdeviceIdInputSearchSelelctor, deviceIdText, clickLeftSelectionTimeSelelctor, leftSelectionTimeTextSelelctor, 
+    // leftSelectionTimeText: string,
+    // clickRightSelectionTimeSelelctor: string,
+    rightSelectionTimeTextSelelctor, 
+    // rightSelectionTimeText: string,
+    searchBtnSlelctor, waitForSelectorONOFFTbody, 
+    // onoffContent: string,
+    exportONOFFContnetBtn, deleteONOFFContnetDiv) {
+        return __awaiter(this, void 0, void 0, function () {
+            var onoff_Info;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: 
+                    //点击导航栏中 上下线 Li slector
+                    return [4 /*yield*/, page.waitForSelector(onClickONOFFLiSelelctor)];
+                    case 1:
+                        //点击导航栏中 上下线 Li slector
+                        _a.sent();
+                        return [4 /*yield*/, page.click(onClickONOFFLiSelelctor)
+                            //等待 上下线页面 的搜索框元素出现
+                            //输入deviceID查询条件
+                        ];
+                    case 2:
+                        _a.sent();
+                        //等待 上下线页面 的搜索框元素出现
+                        //输入deviceID查询条件
+                        return [4 /*yield*/, page.waitForSelector(onoffLogdeviceIdInputSearchSelelctor)];
+                    case 3:
+                        //等待 上下线页面 的搜索框元素出现
+                        //输入deviceID查询条件
+                        _a.sent();
+                        return [4 /*yield*/, page.type(onoffLogdeviceIdInputSearchSelelctor, deviceIdText, { delay: 100 })
+                            //选择日期
+                            // await page.click(clickLeftSelectionTimeSelelctor,{delay: 100})
+                            // await page.click(leftSelectionTimeTextSelelctor, {delay:100})
+                            // await page.click(rightSelectionTimeTextSelelctor, {delay: 100})
+                            // await page.evaluate(() => (<HTMLInputElement>document.querySelector(leftSelectionTimeTextSelelctor)).value = leftSelectionTimeText)
+                            // await page.click(clickRightSelectionTimeSelelctor, {delay:100})
+                            // await page.evaluate(() => (<HTMLInputElement>document.querySelector(rightSelectionTimeTextSelelctor)).value = rightSelectionTimeText)
+                            //点击查询
+                        ];
                     case 4:
+                        _a.sent();
+                        //选择日期
+                        // await page.click(clickLeftSelectionTimeSelelctor,{delay: 100})
+                        // await page.click(leftSelectionTimeTextSelelctor, {delay:100})
+                        // await page.click(rightSelectionTimeTextSelelctor, {delay: 100})
+                        // await page.evaluate(() => (<HTMLInputElement>document.querySelector(leftSelectionTimeTextSelelctor)).value = leftSelectionTimeText)
+                        // await page.click(clickRightSelectionTimeSelelctor, {delay:100})
+                        // await page.evaluate(() => (<HTMLInputElement>document.querySelector(rightSelectionTimeTextSelelctor)).value = rightSelectionTimeText)
+                        //点击查询
+                        return [4 /*yield*/, page.click(searchBtnSlelctor)
+                            //等待 查询内容 table元素出现
+                        ];
+                    case 5:
+                        //选择日期
+                        // await page.click(clickLeftSelectionTimeSelelctor,{delay: 100})
+                        // await page.click(leftSelectionTimeTextSelelctor, {delay:100})
+                        // await page.click(rightSelectionTimeTextSelelctor, {delay: 100})
+                        // await page.evaluate(() => (<HTMLInputElement>document.querySelector(leftSelectionTimeTextSelelctor)).value = leftSelectionTimeText)
+                        // await page.click(clickRightSelectionTimeSelelctor, {delay:100})
+                        // await page.evaluate(() => (<HTMLInputElement>document.querySelector(rightSelectionTimeTextSelelctor)).value = rightSelectionTimeText)
+                        //点击查询
+                        _a.sent();
+                        //等待 查询内容 table元素出现
+                        return [4 /*yield*/, page.waitForSelector(waitForSelectorONOFFTbody)
+                            //获取查询内容并打印
+                        ];
+                    case 6:
+                        //等待 查询内容 table元素出现
+                        _a.sent();
+                        return [4 /*yield*/, page.$$eval(waitForSelectorONOFFTbody, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
+                    case 7:
+                        onoff_Info = _a.sent();
+                        onoff_Info ? console.log("Deviceonofflog --> " + onoff_Info) : console.log('onoff_Info --查询不到设备上下线记录');
+                        //导出查询数据内容
+                        return [4 /*yield*/, page.waitForSelector(exportONOFFContnetBtn)];
+                    case 8:
+                        //导出查询数据内容
+                        _a.sent();
+                        return [4 /*yield*/, page.click(exportONOFFContnetBtn, { delay: 1000 }).then(function () {
+                                try {
+                                    console.log('Deviceonofflog -- 设备信息 -- 导出数据成功');
+                                }
+                                catch (error) {
+                                    console.log("Deviceonofflog -- \u8BBE\u5907\u4FE1\u606F -- \u5BFC\u51FA\u6570\u636E\u5931\u8D25" + error);
+                                }
+                            })];
+                    case 9:
+                        _a.sent();
+                        //删除tab栏
+                        return [4 /*yield*/, page.click(deleteONOFFContnetDiv, { delay: 1000 })];
+                    case 10:
+                        //删除tab栏
                         _a.sent();
                         return [2 /*return*/];
                 }
