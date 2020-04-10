@@ -5,6 +5,7 @@ import { config } from './config'
 
 
 export class NavInfo {
+    //设备信息查询
     public async navDeviceSearch(
         page: Page,
 
@@ -17,10 +18,10 @@ export class NavInfo {
 
         waitForSelectorSearchContentTbody: string,   //等待，直到 搜索内容的相关 元素呈现
 
-        exportDataBtn: string,                  //导出button
+        exportDataBtn?: string,                  //导出button
 
         viewonoffBtn?: string,                      //查看上下线纪录 button
-        waitForSelectorONOFFTbody?: string,      //等待，直到“相关”元素呈现
+        waitForSelectorUserSearchContentTbody?: string,      //等待，直到“相关”元素呈现
         // onoffContent: string,                   //设备上下线内容
         exportONOFFContnetBtn?: string,          //导出上下线按钮
         deleteONOFFContnetDiv?: string,          //删除tab栏的div
@@ -53,13 +54,15 @@ export class NavInfo {
         deviceId_Info_tbody ? console.log(`deviceId_Info_tbody --> ${deviceId_Info_tbody}`) : console.log('deviceId_Info_tbody -- 设备信息查询失败');
 
         //导出查询数据
-        await page.click(exportDataBtn, { delay: 1500 }).then(() => {
-            try {
-                console.log('deviceid_Info_tbody -- 设备信息 -- 导出数据成功')
-            } catch (error) {
-                console.log(`deviceid_Info_tbody -- 设备信息 -- 导出数据失败${error}`)
-            }
-        });
+        if (exportDataBtn) {
+            await page.click(exportDataBtn, { delay: 1500 }).then(() => {
+                try {
+                    console.log('deviceid_Info_tbody -- 设备信息 -- 导出数据成功')
+                } catch (error) {
+                    console.log(`deviceid_Info_tbody -- 设备信息 -- 导出数据失败${error}`)
+                }
+            })
+        };
 
         // //查看被分享人+权限  -- 只可以点开，但无法获取dialog内容和点击
         // if (!viewSharerLimitBtn) {
@@ -83,9 +86,37 @@ export class NavInfo {
 
         //上下线纪录
         // let deviceonofflog = new Deviceonofflog()
-        // deviceonofflog.notClickLionoffLog(page, viewonoffBtn, waitForSelectorONOFFTbody, exportONOFFContnetBtn, deleteONOFFContnetDiv)
+        // deviceonofflog.notClickLionoffLog(page, viewonoffBtn, waitForSelectorUserSearchContentTbody, exportONOFFContnetBtn, deleteONOFFContnetDiv)
 
         //操作历史记录
     }
-
+    //用户信息查询
+    public async navUserSearch(
+        page: Page,
+        onClickUserLiSelelctor: string,
+        userdeviceIdInputSearchSelelctor: string,
+        deviceIdText: string,
+        searchBtnSlelctor: string,
+        waitForSelectorUserSearchContentTbody: string,
+        deleteUserSearchContnetDiv:string,
+    ) {
+        await page.waitForSelector(onClickUserLiSelelctor),
+            await page.click(onClickUserLiSelelctor),
+            await page.waitForSelector(userdeviceIdInputSearchSelelctor),
+            await page.type(userdeviceIdInputSearchSelelctor, deviceIdText, { delay: 100 }),
+            await page.click(searchBtnSlelctor)
+        await page.click(waitForSelectorUserSearchContentTbody)
+        const userSearch_Info = await page.$$eval(waitForSelectorUserSearchContentTbody, eles => eles.map(ele => ele.textContent))
+        userSearch_Info ? console.log(`userSearch_Info --> ${userSearch_Info}`) : console.log('userSearch_Info --查询用户deviceID信息');
+        await page.click(deleteUserSearchContnetDiv);
+    }
+    //操作历史记录
+    public async navHistoryRecord(page:Page){
+        await page.waitForSelector();
+        await page.click();
+        await page.waitForSelector();
+        await page.type();
+        await page.click();
+        await page.click();
+    }
 }

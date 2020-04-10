@@ -81,7 +81,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                 //缩小Nav
                 _a.sent();
                 //NavDeviceInfoSearch
-                return [4 /*yield*/, navInfo.navDeviceSearch(page, element_1.elements.navinfoSelelctor, element_1.elements.waitForSelectorSearchInput, element_1.elements.deviceIdInputSearchSelelctor, config_1.config.deviceIdText, element_1.elements.searchBtn, element_1.elements.waitForSelectorSearchContentTbody, element_1.elements.exportDataBtn)
+                return [4 /*yield*/, navInfo.navDeviceSearch(page, element_1.elements.navinfoSelelctor, element_1.elements.waitForSelectorSearchInput, element_1.elements.deviceIdInputSearchSelelctor, config_1.config.deviceIdText, element_1.elements.searchBtn, element_1.elements.waitForSelectorSearchContentTbody)
                     //扩大Nav
                 ];
             case 8:
@@ -93,7 +93,15 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                 //扩大Nav
                 _a.sent();
                 //点击上下线记录查询
-                return [4 /*yield*/, deviceonofflog.onClickLionoffLog(page, element_1.elements.onClickONOFFLiSelelctor, element_1.elements.onoffLogdeviceIdInputSearchSelelctor, config_1.config.deviceIdText, element_1.elements.clickLeftSelectionTimeSelelctor, element_1.elements.leftSelectionTimeTextSelelctor, element_1.elements.rightSelectionTimeTextSelelctor, element_1.elements.rightSelectionTimeTextSelelctor, element_1.elements.searchBtn, element_1.elements.waitForSelectorONOFFTbody, element_1.elements.exportONOFFContnetBtn, element_1.elements.deleteONOFFContnetDiv)
+                return [4 /*yield*/, deviceonofflog.onClickLionoffLog(page, element_1.elements.onClickONOFFLiSelelctor, element_1.elements.onoffLogdeviceIdInputSearchSelelctor, config_1.config.deviceIdText, 
+                    // elements.clickLeftSelectionTimeSelelctor,
+                    // elements.leftSelectionTimeTextSelelctor,
+                    // elements.rightSelectionTimeTextSelelctor,
+                    // elements.acceptSelectionTimeTextSelelctor,
+                    element_1.elements.searchBtnSlelctor, 
+                    // elements.waitForSelectorONOFFTbody,
+                    // elements.exportONOFFContnetBtn,
+                    element_1.elements.deleteONOFFContnetDiv)
                     // 退出登录
                 ];
             case 10:

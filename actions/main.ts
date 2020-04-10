@@ -39,7 +39,7 @@ const run = async () => {
 
         elements.waitForSelectorSearchContentTbody,
 
-        elements.exportDataBtn,  //导出设备信息数据
+        // elements.exportDataBtn,  //导出设备信息数据
 
         // elements.viewonoffBtn,
         // elements.waitForSelectorONOFFTbody,
@@ -68,13 +68,13 @@ const run = async () => {
         elements.onClickONOFFLiSelelctor,
         elements.onoffLogdeviceIdInputSearchSelelctor,
         config.deviceIdText,
-        elements.clickLeftSelectionTimeSelelctor,
-        elements.leftSelectionTimeTextSelelctor,
-        elements.rightSelectionTimeTextSelelctor,
-        elements.rightSelectionTimeTextSelelctor,
-        elements.searchBtn,
-        elements.waitForSelectorONOFFTbody,
-        elements.exportONOFFContnetBtn,
+        // elements.clickLeftSelectionTimeSelelctor,
+        // elements.leftSelectionTimeTextSelelctor,
+        // elements.rightSelectionTimeTextSelelctor,
+        // elements.acceptSelectionTimeTextSelelctor,
+        elements.searchBtnSlelctor,
+        // elements.waitForSelectorONOFFTbody,
+        // elements.exportONOFFContnetBtn,
         elements.deleteONOFFContnetDiv
     )
 

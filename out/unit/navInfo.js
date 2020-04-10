@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var NavInfo = /** @class */ (function () {
     function NavInfo() {
     }
+    //设备信息查询
     NavInfo.prototype.navDeviceSearch = function (page, navinfoSlelctor, //导航栏中的ul
     waitForSelectorInput, // 等待，直到 输入框相关 元素呈现
     deviceIdInputSearchSlelctor, //deviceID的输入框
@@ -47,7 +48,7 @@ var NavInfo = /** @class */ (function () {
     waitForSelectorSearchContentTbody, //等待，直到 搜索内容的相关 元素呈现
     exportDataBtn, //导出button
     viewonoffBtn, //查看上下线纪录 button
-    waitForSelectorONOFFTbody, //等待，直到“相关”元素呈现
+    waitForSelectorUserSearchContentTbody, //等待，直到“相关”元素呈现
     // onoffContent: string,                   //设备上下线内容
     exportONOFFContnetBtn, //导出上下线按钮
     deleteONOFFContnetDiv, //删除tab栏的div
@@ -89,7 +90,7 @@ var NavInfo = /** @class */ (function () {
                     case 6:
                         deviceId_Info_tbody = _a.sent();
                         deviceId_Info_tbody ? console.log("deviceId_Info_tbody --> " + deviceId_Info_tbody) : console.log('deviceId_Info_tbody -- 设备信息查询失败');
-                        //导出查询数据
+                        if (!exportDataBtn) return [3 /*break*/, 8];
                         return [4 /*yield*/, page.click(exportDataBtn, { delay: 1500 }).then(function () {
                                 try {
                                     console.log('deviceid_Info_tbody -- 设备信息 -- 导出数据成功');
@@ -99,7 +100,73 @@ var NavInfo = /** @class */ (function () {
                                 }
                             })];
                     case 7:
-                        //导出查询数据
+                        _a.sent();
+                        _a.label = 8;
+                    case 8:
+                        ;
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    //用户信息查询
+    NavInfo.prototype.navUserSearch = function (page, onClickUserLiSelelctor, userdeviceIdInputSearchSelelctor, deviceIdText, searchBtnSlelctor, waitForSelectorUserSearchContentTbody, deleteUserSearchContnetDiv) {
+        return __awaiter(this, void 0, void 0, function () {
+            var userSearch_Info;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, page.waitForSelector(onClickUserLiSelelctor)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(onClickUserLiSelelctor)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, page.waitForSelector(userdeviceIdInputSearchSelelctor)];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, page.type(userdeviceIdInputSearchSelelctor, deviceIdText, { delay: 100 })];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(searchBtnSlelctor)];
+                    case 5:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(waitForSelectorUserSearchContentTbody)];
+                    case 6:
+                        _a.sent();
+                        return [4 /*yield*/, page.$$eval(waitForSelectorUserSearchContentTbody, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
+                    case 7:
+                        userSearch_Info = _a.sent();
+                        userSearch_Info ? console.log("userSearch_Info --> " + userSearch_Info) : console.log('userSearch_Info --查询用户deviceID信息');
+                        return [4 /*yield*/, page.click(deleteUserSearchContnetDiv)];
+                    case 8:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    //操作历史记录
+    NavInfo.prototype.navHistoryRecord = function (page) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, page.waitForSelector()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, page.click()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, page.waitForSelector()];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, page.type()];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, page.click()];
+                    case 5:
+                        _a.sent();
+                        return [4 /*yield*/, page.click()];
+                    case 6:
                         _a.sent();
                         return [2 /*return*/];
                 }
