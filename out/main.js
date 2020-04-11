@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var puppeteer_1 = require("puppeteer");
-var loginInfo_1 = require("./unit/loginInfo");
+var signInInfo_1 = require("./unit/signInInfo");
 var navInfo_1 = require("./unit/navInfo");
 var config_1 = require("./unit/config");
 var element_1 = require("./dom/element");
@@ -47,7 +47,7 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                loginInfo = new loginInfo_1.LoginInfo();
+                loginInfo = new signInInfo_1.LoginInfo();
                 navInfo = new navInfo_1.NavInfo();
                 deviceonofflog = new deviceonofflog_1.Deviceonofflog();
                 return [4 /*yield*/, puppeteer_1.launch({ headless: false, defaultViewport: { width: 1600, height: 868 }, timeout: 30000 })];
@@ -75,25 +75,33 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
             case 6:
                 user_Info = _a.sent();
                 user_Info === undefined || null ? console.log('无用户信息') : console.log("user_Info --> " + user_Info);
-                //缩小Nav
-                return [4 /*yield*/, page.click(element_1.elements.narrowAndExpandNav)];
+                //click narrowNavIcon
+                return [4 /*yield*/, page.click(element_1.elements.narrowAndExpandNav).then(function () { return console.log('点击缩小导航栏Icon'); })];
             case 7:
-                //缩小Nav
+                //click narrowNavIcon
                 _a.sent();
                 //NavDeviceInfoSearch
-                return [4 /*yield*/, navInfo.navDeviceSearch(page, element_1.elements.navinfoSelelctor, element_1.elements.waitForSelectorSearchInput, element_1.elements.deviceIdInputSearchSelelctor, config_1.config.deviceIdText, element_1.elements.searchBtn, element_1.elements.waitForSelectorSearchContentTbody)
-                    //扩大Nav
+                return [4 /*yield*/, navInfo.navDeviceSearch(page, element_1.elements.navinfoSelelctor, element_1.elements.waitForSelectorSearchInput, element_1.elements.deviceIdInputSearchSelelctor, config_1.config.deviceIdText, element_1.elements.searchBtn, element_1.elements.waitForSelectorSearchContentTbody, element_1.elements.deleteDeviceInfoSearchInputValue, element_1.elements.exportDataBtn)
+                    //click expandNavIcon
                 ];
             case 8:
                 //NavDeviceInfoSearch
                 _a.sent();
-                //扩大Nav
-                return [4 /*yield*/, page.click(element_1.elements.narrowAndExpandNav)];
+                //click expandNavIcon
+                return [4 /*yield*/, page.click(element_1.elements.narrowAndExpandNav).then(function () { return console.log('点击扩大导航栏Icon'); })];
             case 9:
-                //扩大Nav
+                //click expandNavIcon
                 _a.sent();
-                //点击上下线记录查询
-                return [4 /*yield*/, deviceonofflog.onClickLionoffLog(page, element_1.elements.onClickONOFFLiSelelctor, element_1.elements.onoffLogdeviceIdInputSearchSelelctor, config_1.config.deviceIdText, 
+                ;
+                //click Nav userInfoSearch
+                return [4 /*yield*/, navInfo.navUserSearch(page, element_1.elements.deletePreTabDiv, element_1.elements.onClickUserLiSelelctor, element_1.elements.userAccountInputSearchSelelctor, config_1.config.phone, element_1.elements.userSearchBtnSlelctor, element_1.elements.waitForSelectorUserSearchContentTbody, element_1.elements.cleanUserDeviceIdText, element_1.elements.exportuserAccountInfoDataBtn)
+                    //click Nav onofflogSearch
+                ];
+            case 10:
+                //click Nav userInfoSearch
+                _a.sent();
+                //click Nav onofflogSearch
+                return [4 /*yield*/, deviceonofflog.onClickLionoffLog(page, element_1.elements.deletePreTabDiv, element_1.elements.onClickONOFFLiSelelctor, element_1.elements.onoffLogdeviceIdInputSearchSelelctor, config_1.config.deviceIdText, 
                     // elements.clickLeftSelectionTimeSelelctor,
                     // elements.leftSelectionTimeTextSelelctor,
                     // elements.rightSelectionTimeTextSelelctor,
@@ -102,30 +110,37 @@ var run = function () { return __awaiter(void 0, void 0, void 0, function () {
                     // elements.waitForSelectorONOFFTbody,
                     // elements.exportONOFFContnetBtn,
                     element_1.elements.deleteONOFFContnetDiv)
-                    // 退出登录
+                    //click Nav HistoryRecord
                 ];
-            case 10:
-                //点击上下线记录查询
-                _a.sent();
-                _a.label = 11;
             case 11:
-                _a.trys.push([11, 13, , 14]);
-                return [4 /*yield*/, page.click(element_1.elements.signOutBtn, { delay: 1000 })];
-            case 12:
+                //click Nav onofflogSearch
                 _a.sent();
-                return [3 /*break*/, 14];
+                //click Nav HistoryRecord
+                return [4 /*yield*/, navInfo.navHistoryRecord(page, element_1.elements.onClickHistoryLiSelelctor, element_1.elements.deletePreTabDiv, element_1.elements.historyDeviceIdInputSearchSelelctor, config_1.config.deviceIdText, element_1.elements.historySearchBtnSlelctor, element_1.elements.cleanHistoryDeviceIdText)
+                    //sign out
+                ];
+            case 12:
+                //click Nav HistoryRecord
+                _a.sent();
+                _a.label = 13;
             case 13:
+                _a.trys.push([13, 15, , 16]);
+                return [4 /*yield*/, page.click(element_1.elements.signOutBtn, { delay: 2000 })];
+            case 14:
+                _a.sent();
+                return [3 /*break*/, 16];
+            case 15:
                 error_1 = _a.sent();
                 console.log("\u9000\u51FA\u767B\u5F55 --> " + error_1);
-                return [3 /*break*/, 14];
-            case 14: 
-            //等待两秒后关闭浏览器
+                return [3 /*break*/, 16];
+            case 16: 
+            //awit for 2s,close browser
             return [4 /*yield*/, page.waitFor(2 * 1000)];
-            case 15:
-                //等待两秒后关闭浏览器
+            case 17:
+                //awit for 2s,close browser
                 _a.sent();
                 return [4 /*yield*/, browser.close().then(function () { return console.log('关闭浏览器'); })];
-            case 16:
+            case 18:
                 _a.sent();
                 return [2 /*return*/];
         }

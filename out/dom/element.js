@@ -12,6 +12,7 @@ exports.elements = {
     // 缩小扩大Nav
     navinfoSelelctor: '#root > div > section > aside > div > div > ul',
     narrowAndExpandNav: '#root > div > section > section > header > div > button',
+    deletePreTabDiv: '#root > div > section > section > main > div > div.ant-tabs-bar.ant-tabs-top-bar.ant-tabs-card-bar > div > div > div > div > div:nth-child(1) > div:nth-child(1) > div > i > svg > path',
     /**
      * NavDeviceInfoSearch
      */
@@ -21,6 +22,7 @@ exports.elements = {
     waitForSelectorSearchContentTbody: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr',
     // searchContent: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr',
     exportDataBtn: ' #root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div:nth-child(1) > button > a',
+    deleteDeviceInfoSearchInputValue: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper > span > i > svg > path',
     //Sharer
     viewSharerLimitBtn: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr > td:nth-child(16) > button > span',
     viewSharerDialogDiv: 'body > div:nth-child(8) > div > div.ant-modal-wrap > div > div.ant-modal-content > div',
@@ -52,11 +54,21 @@ exports.elements = {
     /**
     * NavUserSearch
     */
-    onClickUserLiSelelctor: '',
-    userdeviceIdInputSearchSelelctor: '',
-    userSearchBtnSlelctor: '',
-    waitForSelectorUserSearchContentTbody: '',
-    deleteUserSearchContnetDiv: '',
+    onClickUserLiSelelctor: '#root > div > section > aside > div > div > ul > li:nth-child(2)',
+    userAccountInputSearchSelelctor: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper > input',
+    userSearchBtnSlelctor: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.queryPanel___3l-Tv > div > button',
+    waitForSelectorUserSearchContentTbody: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.resultPanel___cUpUF > div > div.ant-table-wrapper > div > div > div > div > div > div > table > tbody > tr',
+    exportuserAccountInfoDataBtn: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.resultPanel___cUpUF > div > div:nth-child(1) > button > a',
+    deleteUserSearchContnetDiv: '#root > div > section > section > main > div > div.ant-tabs-bar.ant-tabs-top-bar.ant-tabs-card-bar > div > div > div > div > div:nth-child(1) > div.ant-tabs-tab-active.ant-tabs-tab > div > i > svg',
+    cleanUserDeviceIdText: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div.ant-tabs-tabpane.ant-tabs-tabpane-active > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper > span > i > svg > path',
+    /**
+     * NavHistoryRecord
+     */
+    onClickHistoryLiSelelctor: '#root > div > section > aside > div > div > ul > li:nth-child(4)',
+    historyDeviceIdInputSearchSelelctor: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper > input',
+    historySearchBtnSlelctor: 'button.ant-btn.queryBtn___EiRjA.ant-btn-primary',
+    cleanHistoryDeviceIdText: '#root > div > section > section > main > div > div.ant-tabs-content.ant-tabs-content-no-animated.ant-tabs-top-content.ant-tabs-card-content > div > div.normal___16mjt > div.queryPanel___3l-Tv > div > span:nth-child(1) > span.ant-input-affix-wrapper > span > i > svg > path',
     //sign out
     signOutBtn: '#root > div > section > section > header > div > div > button',
+    antInputValueSelector: "input.ant-input"
 };

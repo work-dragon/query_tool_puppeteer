@@ -1,5 +1,5 @@
 import { Page, launch, Browser } from 'puppeteer'
-import { LoginInfo } from './unit/loginInfo'
+import { LoginInfo } from './unit/signInInfo'
 import { NavInfo } from './unit/navInfo'
 import { config } from './unit/config'
 import { elements } from './dom/element'
@@ -24,8 +24,8 @@ const run = async () => {
     const user_Info = await page.$eval(elements.userInfo___7ZPSO, ele => ele.textContent);
     user_Info === undefined || null ? console.log('无用户信息') : console.log(`user_Info --> ${user_Info}`)
 
-    //缩小Nav
-    await page.click(elements.narrowAndExpandNav);
+    //click narrowNavIcon
+    await page.click(elements.narrowAndExpandNav).then(() => console.log('点击缩小导航栏Icon'));
 
     //NavDeviceInfoSearch
     await navInfo.navDeviceSearch(
@@ -38,8 +38,9 @@ const run = async () => {
         elements.searchBtn,
 
         elements.waitForSelectorSearchContentTbody,
+        elements.deleteDeviceInfoSearchInputValue,
 
-        // elements.exportDataBtn,  //导出设备信息数据
+        elements.exportDataBtn,  //导出设备信息数据
 
         // elements.viewonoffBtn,
         // elements.waitForSelectorONOFFTbody,
@@ -59,12 +60,26 @@ const run = async () => {
         // elements.deviceStatusDialogAccept,
     )
 
-    //扩大Nav
-    await page.click(elements.narrowAndExpandNav);
+    //click expandNavIcon
+    await page.click(elements.narrowAndExpandNav).then(() => console.log('点击扩大导航栏Icon'));;
 
-    //点击上下线记录查询
+    //click Nav userInfoSearch
+    await navInfo.navUserSearch(
+        page,
+        elements.deletePreTabDiv,
+        elements.onClickUserLiSelelctor,
+        elements.userAccountInputSearchSelelctor,
+        config.phone,
+        elements.userSearchBtnSlelctor,
+        elements.waitForSelectorUserSearchContentTbody,
+        elements.cleanUserDeviceIdText,
+        elements.exportuserAccountInfoDataBtn
+    )
+
+    //click Nav onofflogSearch
     await deviceonofflog.onClickLionoffLog(
         page,
+        elements.deletePreTabDiv,
         elements.onClickONOFFLiSelelctor,
         elements.onoffLogdeviceIdInputSearchSelelctor,
         config.deviceIdText,
@@ -79,16 +94,18 @@ const run = async () => {
     )
 
 
+    //click Nav HistoryRecord
+    await navInfo.navHistoryRecord(page, elements.onClickHistoryLiSelelctor, elements.deletePreTabDiv, elements.historyDeviceIdInputSearchSelelctor, config.deviceIdText, elements.historySearchBtnSlelctor, elements.cleanHistoryDeviceIdText)
 
 
-    // 退出登录
+    //sign out
     try {
-        await page.click(elements.signOutBtn, { delay: 1000 });
+        await page.click(elements.signOutBtn, { delay: 2000 });
     } catch (error) {
         console.log(`退出登录 --> ${error}`)
     }
 
-    //等待两秒后关闭浏览器
+    //awit for 2s,close browser
     await page.waitFor(2 * 1000);
     await browser.close().then(() => console.log('关闭浏览器'));
 }

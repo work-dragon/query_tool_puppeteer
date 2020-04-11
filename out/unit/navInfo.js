@@ -46,6 +46,7 @@ var NavInfo = /** @class */ (function () {
     deviceIdText, //输入框的内容
     searchBtn, //查询的button
     waitForSelectorSearchContentTbody, //等待，直到 搜索内容的相关 元素呈现
+    deleteDeviceInfoSearchInputValue, //清空输入框的内容
     exportDataBtn, //导出button
     viewonoffBtn, //查看上下线纪录 button
     waitForSelectorUserSearchContentTbody, //等待，直到“相关”元素呈现
@@ -63,82 +64,133 @@ var NavInfo = /** @class */ (function () {
     deviceStatusDialogContent, //当前设备状态 dialog内容
     deviceStatusDialogAccept) {
         return __awaiter(this, void 0, void 0, function () {
-            var nav_Info, deviceId_Info_tbody;
+            var navText, navDeviceId_Info_tbody;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, page.$$eval(navinfoSlelctor, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
                     case 1:
-                        nav_Info = _a.sent();
-                        nav_Info ? console.log("nav_Info --> " + nav_Info) : console.log('nav_Info -- 获取导航栏信息失败');
+                        navText = _a.sent();
+                        navText ? console.log("navText --> " + navText) : console.log('navText -- 获取导航栏信息失败');
                         //等待 搜索框元素 出现后输入内容并点击
                         return [4 /*yield*/, page.waitForSelector(waitForSelectorInput)];
                     case 2:
                         //等待 搜索框元素 出现后输入内容并点击
                         _a.sent();
-                        return [4 /*yield*/, page.type(deviceIdInputSearchSlelctor, deviceIdText, { delay: 100 })];
+                        return [4 /*yield*/, page.click(deviceIdInputSearchSlelctor)];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, page.click(searchBtn)];
+                        // await cleanText(page);;
+                        // let cleanText = new CleanText()
+                        // await cleanText.domClean(page, elements.antInputValueSelector)    
+                        return [4 /*yield*/, page.type(deviceIdInputSearchSlelctor, deviceIdText, { delay: 500 })];
                     case 4:
+                        // await cleanText(page);;
+                        // let cleanText = new CleanText()
+                        // await cleanText.domClean(page, elements.antInputValueSelector)    
+                        _a.sent();
+                        return [4 /*yield*/, page.click(searchBtn)];
+                    case 5:
                         _a.sent();
                         //等待 搜索内容table元素 出现 获取搜索内容 并打印
                         return [4 /*yield*/, page.waitForSelector(waitForSelectorSearchContentTbody)];
-                    case 5:
+                    case 6:
                         //等待 搜索内容table元素 出现 获取搜索内容 并打印
                         _a.sent();
                         return [4 /*yield*/, page.$$eval(waitForSelectorSearchContentTbody, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
-                    case 6:
-                        deviceId_Info_tbody = _a.sent();
-                        deviceId_Info_tbody ? console.log("deviceId_Info_tbody --> " + deviceId_Info_tbody) : console.log('deviceId_Info_tbody -- 设备信息查询失败');
-                        if (!exportDataBtn) return [3 /*break*/, 8];
+                    case 7:
+                        navDeviceId_Info_tbody = _a.sent();
+                        navDeviceId_Info_tbody ? console.log("navDeviceId_Info_tbody --> " + navDeviceId_Info_tbody) : console.log('navDeviceId_Info_tbody -- 设备信息查询失败');
+                        if (!exportDataBtn) return [3 /*break*/, 10];
+                        return [4 /*yield*/, page.waitForSelector(exportDataBtn)];
+                    case 8:
+                        _a.sent();
                         return [4 /*yield*/, page.click(exportDataBtn, { delay: 1500 }).then(function () {
                                 try {
-                                    console.log('deviceid_Info_tbody -- 设备信息 -- 导出数据成功');
+                                    console.log('navDeviceid_Info_tbody -- 设备信息 -- 导出数据成功');
                                 }
                                 catch (error) {
-                                    console.log("deviceid_Info_tbody -- \u8BBE\u5907\u4FE1\u606F -- \u5BFC\u51FA\u6570\u636E\u5931\u8D25" + error);
+                                    console.log("navDeviceid_Info_tbody -- \u8BBE\u5907\u4FE1\u606F -- \u5BFC\u51FA\u6570\u636E\u5931\u8D25" + error);
                                 }
                             })];
-                    case 7:
+                    case 9:
                         _a.sent();
-                        _a.label = 8;
-                    case 8:
+                        _a.label = 10;
+                    case 10:
                         ;
+                        return [4 /*yield*/, page.waitForSelector(deleteDeviceInfoSearchInputValue)];
+                    case 11:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(deleteDeviceInfoSearchInputValue, { delay: 2000 }).then(function () { return console.log('清空 设备信息查询 输入框的内容'); })];
+                    case 12:
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
     //用户信息查询
-    NavInfo.prototype.navUserSearch = function (page, onClickUserLiSelelctor, userdeviceIdInputSearchSelelctor, deviceIdText, searchBtnSlelctor, waitForSelectorUserSearchContentTbody, deleteUserSearchContnetDiv) {
+    NavInfo.prototype.navUserSearch = function (page, deletePreTabDiv, onClickUserLiSelelctor, userAccountInputSearchSelelctor, accountPhone, userSearchBtnSlelctor, waitForSelectorUserSearchContentTbody, cleanUserDeviceIdText, exportuserAccountInfoDataBtn) {
         return __awaiter(this, void 0, void 0, function () {
-            var userSearch_Info;
+            var navUserSearch_Info;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, page.waitForSelector(onClickUserLiSelelctor)];
+                    case 0:
+                        console.log('从导航栏中进入 用户信息查询');
+                        return [4 /*yield*/, page.waitForSelector(onClickUserLiSelelctor)];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, page.click(onClickUserLiSelelctor)];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, page.waitForSelector(userdeviceIdInputSearchSelelctor)];
+                        return [4 /*yield*/, page.waitForSelector(userAccountInputSearchSelelctor)];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, page.type(userdeviceIdInputSearchSelelctor, deviceIdText, { delay: 100 })];
+                        return [4 /*yield*/, page.click(userAccountInputSearchSelelctor)];
                     case 4:
                         _a.sent();
-                        return [4 /*yield*/, page.click(searchBtnSlelctor)];
+                        // await cleanText(page);
+                        return [4 /*yield*/, page.waitForSelector(deletePreTabDiv)];
                     case 5:
+                        // await cleanText(page);
                         _a.sent();
-                        return [4 /*yield*/, page.click(waitForSelectorUserSearchContentTbody)];
+                        return [4 /*yield*/, page.click(deletePreTabDiv, { delay: 1000 }).then(function () { return console.log('关闭用户信息查询前一个tab栏'); })];
                     case 6:
                         _a.sent();
-                        return [4 /*yield*/, page.$$eval(waitForSelectorUserSearchContentTbody, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
+                        return [4 /*yield*/, page.type(userAccountInputSearchSelelctor, accountPhone, { delay: 500 })];
                     case 7:
-                        userSearch_Info = _a.sent();
-                        userSearch_Info ? console.log("userSearch_Info --> " + userSearch_Info) : console.log('userSearch_Info --查询用户deviceID信息');
-                        return [4 /*yield*/, page.click(deleteUserSearchContnetDiv)];
+                        _a.sent();
+                        return [4 /*yield*/, page.click(userSearchBtnSlelctor).then(function () { return console.log('在用户信息查询中 点击查询按钮'); })];
                     case 8:
+                        _a.sent();
+                        return [4 /*yield*/, page.waitForSelector(waitForSelectorUserSearchContentTbody)];
+                    case 9:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(waitForSelectorUserSearchContentTbody)];
+                    case 10:
+                        _a.sent();
+                        return [4 /*yield*/, page.$$eval(waitForSelectorUserSearchContentTbody, function (eles) { return eles.map(function (ele) { return ele.textContent; }); })];
+                    case 11:
+                        navUserSearch_Info = _a.sent();
+                        navUserSearch_Info ? console.log("navUserSearch_Info --> " + navUserSearch_Info) : console.log('navUserSearch_Info -- 查询用户信息失败');
+                        if (!exportuserAccountInfoDataBtn) return [3 /*break*/, 14];
+                        return [4 /*yield*/, page.waitForSelector(exportuserAccountInfoDataBtn)];
+                    case 12:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(exportuserAccountInfoDataBtn, { delay: 1500 }).then(function () {
+                                try {
+                                    console.log('navUser_Info_tbody -- 用户账号信息 -- 导出数据成功');
+                                }
+                                catch (error) {
+                                    console.log("navUser_Info_tbody -- \u7528\u6237\u8D26\u53F7\u4FE1\u606F -- \u5BFC\u51FA\u6570\u636E\u5931\u8D25" + error);
+                                }
+                            })];
+                    case 13:
+                        _a.sent();
+                        _a.label = 14;
+                    case 14:
+                        ;
+                        return [4 /*yield*/, page.click(cleanUserDeviceIdText).then(function () { return console.log('清空 用户信息查询 输入框的内容'); })];
+                    case 15:
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -146,27 +198,35 @@ var NavInfo = /** @class */ (function () {
         });
     };
     //操作历史记录
-    NavInfo.prototype.navHistoryRecord = function (page) {
+    NavInfo.prototype.navHistoryRecord = function (page, onClickHistoryLiSelelctor, deletePreTabDiv, historyDeviceIdInputSearchSelelctor, historyDeviceIdText, historySearchBtnSlelctor, cleanHistoryDeviceIdText) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, page.waitForSelector()];
+                    case 0:
+                        console.log('从导航栏中进入 操作历史记录');
+                        return [4 /*yield*/, page.waitForSelector(onClickHistoryLiSelelctor)];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, page.click()];
+                        return [4 /*yield*/, page.click(onClickHistoryLiSelelctor)];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, page.waitForSelector()];
+                        return [4 /*yield*/, page.waitForSelector(deletePreTabDiv)];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, page.type()];
+                        return [4 /*yield*/, page.click(deletePreTabDiv).then(function () { return console.log('关闭操作历史记录前一个tab栏'); })];
                     case 4:
                         _a.sent();
-                        return [4 /*yield*/, page.click()];
+                        return [4 /*yield*/, page.waitForSelector(historyDeviceIdInputSearchSelelctor)];
                     case 5:
                         _a.sent();
-                        return [4 /*yield*/, page.click()];
+                        return [4 /*yield*/, page.type(historyDeviceIdInputSearchSelelctor, historyDeviceIdText, { delay: 500 }).then(function () { return console.log("\u70B9\u51FB\u64CD\u4F5C\u5386\u53F2\u8BB0\u5F55 --> \u67E5\u8BE2\u6761\u4EF6 deviceid  Input\u5E76\u8F93\u5165-" + historyDeviceIdText + "-"); })];
                     case 6:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(historySearchBtnSlelctor).then(function () { return console.log('在操作历史中 点击查询按钮'); })];
+                    case 7:
+                        _a.sent();
+                        return [4 /*yield*/, page.click(cleanHistoryDeviceIdText).then(function () { return console.log('清空 操作历史记录 输入框的内容'); })];
+                    case 8:
                         _a.sent();
                         return [2 /*return*/];
                 }

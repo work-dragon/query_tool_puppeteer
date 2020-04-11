@@ -1,8 +1,4 @@
 import { Page } from 'puppeteer'
-import { Deviceonofflog } from './deviceonofflog'
-import { elements } from '../dom/element'
-import { config } from './config'
-
 
 export class NavInfo {
     //设备信息查询
@@ -17,6 +13,7 @@ export class NavInfo {
         searchBtn: string,                      //查询的button
 
         waitForSelectorSearchContentTbody: string,   //等待，直到 搜索内容的相关 元素呈现
+        deleteDeviceInfoSearchInputValue: string,   //清空输入框的内容
 
         exportDataBtn?: string,                  //导出button
 
@@ -40,29 +37,40 @@ export class NavInfo {
 
     ) {
         // 获取导航栏信息
-        const nav_Info = await page.$$eval(navinfoSlelctor, eles => eles.map(ele => ele.textContent))
-        nav_Info ? console.log(`nav_Info --> ${nav_Info}`) : console.log('nav_Info -- 获取导航栏信息失败')
+        const navText = await page.$$eval(navinfoSlelctor, eles => eles.map(ele => ele.textContent));
+        navText ? console.log(`navText --> ${navText}`) : console.log('navText -- 获取导航栏信息失败');
 
         //等待 搜索框元素 出现后输入内容并点击
-        await page.waitForSelector(waitForSelectorInput)
-        await page.type(deviceIdInputSearchSlelctor, deviceIdText, { delay: 100 })
+        await page.waitForSelector(waitForSelectorInput);
+        await page.click(deviceIdInputSearchSlelctor);
+
+        // await cleanText(page);;
+        // let cleanText = new CleanText()
+        // await cleanText.domClean(page, elements.antInputValueSelector)    
+
+
+        await page.type(deviceIdInputSearchSlelctor, deviceIdText, { delay: 500 });
         await page.click(searchBtn);
 
         //等待 搜索内容table元素 出现 获取搜索内容 并打印
         await page.waitForSelector(waitForSelectorSearchContentTbody);
-        const deviceId_Info_tbody = await page.$$eval(waitForSelectorSearchContentTbody, eles => eles.map(ele => ele.textContent));
-        deviceId_Info_tbody ? console.log(`deviceId_Info_tbody --> ${deviceId_Info_tbody}`) : console.log('deviceId_Info_tbody -- 设备信息查询失败');
+        const navDeviceId_Info_tbody = await page.$$eval(waitForSelectorSearchContentTbody, eles => eles.map(ele => ele.textContent));
+        navDeviceId_Info_tbody ? console.log(`navDeviceId_Info_tbody --> ${navDeviceId_Info_tbody}`) : console.log('navDeviceId_Info_tbody -- 设备信息查询失败');
 
         //导出查询数据
         if (exportDataBtn) {
+            await page.waitForSelector(exportDataBtn)
             await page.click(exportDataBtn, { delay: 1500 }).then(() => {
                 try {
-                    console.log('deviceid_Info_tbody -- 设备信息 -- 导出数据成功')
+                    console.log('navDeviceid_Info_tbody -- 设备信息 -- 导出数据成功')
                 } catch (error) {
-                    console.log(`deviceid_Info_tbody -- 设备信息 -- 导出数据失败${error}`)
+                    console.log(`navDeviceid_Info_tbody -- 设备信息 -- 导出数据失败${error}`)
                 }
             })
         };
+
+        await page.waitForSelector(deleteDeviceInfoSearchInputValue);
+        await page.click(deleteDeviceInfoSearchInputValue, { delay: 2000 }).then(() => console.log('清空 设备信息查询 输入框的内容'));
 
         // //查看被分享人+权限  -- 只可以点开，但无法获取dialog内容和点击
         // if (!viewSharerLimitBtn) {
@@ -93,30 +101,70 @@ export class NavInfo {
     //用户信息查询
     public async navUserSearch(
         page: Page,
+        deletePreTabDiv: string,
         onClickUserLiSelelctor: string,
-        userdeviceIdInputSearchSelelctor: string,
-        deviceIdText: string,
-        searchBtnSlelctor: string,
+        userAccountInputSearchSelelctor: string,
+        accountPhone: string,
+        userSearchBtnSlelctor: string,
         waitForSelectorUserSearchContentTbody: string,
-        deleteUserSearchContnetDiv:string,
+        cleanUserDeviceIdText:string,
+        exportuserAccountInfoDataBtn: string,
     ) {
-        await page.waitForSelector(onClickUserLiSelelctor),
-            await page.click(onClickUserLiSelelctor),
-            await page.waitForSelector(userdeviceIdInputSearchSelelctor),
-            await page.type(userdeviceIdInputSearchSelelctor, deviceIdText, { delay: 100 }),
-            await page.click(searchBtnSlelctor)
-        await page.click(waitForSelectorUserSearchContentTbody)
-        const userSearch_Info = await page.$$eval(waitForSelectorUserSearchContentTbody, eles => eles.map(ele => ele.textContent))
-        userSearch_Info ? console.log(`userSearch_Info --> ${userSearch_Info}`) : console.log('userSearch_Info --查询用户deviceID信息');
-        await page.click(deleteUserSearchContnetDiv);
+
+        console.log('从导航栏中进入 用户信息查询')
+        await page.waitForSelector(onClickUserLiSelelctor);
+        await page.click(onClickUserLiSelelctor);
+
+        await page.waitForSelector(userAccountInputSearchSelelctor);
+        await page.click(userAccountInputSearchSelelctor);
+
+        // await cleanText(page);
+        await page.waitForSelector(deletePreTabDiv)
+        await page.click(deletePreTabDiv, { delay: 1000 }).then(() => console.log('关闭用户信息查询前一个tab栏'));
+
+        await page.type(userAccountInputSearchSelelctor, accountPhone, { delay: 500 });
+        await page.click(userSearchBtnSlelctor).then(() => console.log('在用户信息查询中 点击查询按钮'));
+
+        await page.waitForSelector(waitForSelectorUserSearchContentTbody);
+        await page.click(waitForSelectorUserSearchContentTbody);
+        const navUserSearch_Info = await page.$$eval(waitForSelectorUserSearchContentTbody, eles => eles.map(ele => ele.textContent));
+        navUserSearch_Info ? console.log(`navUserSearch_Info --> ${navUserSearch_Info}`) : console.log('navUserSearch_Info -- 查询用户信息失败');
+
+        //导出查询数据
+        if (exportuserAccountInfoDataBtn) {
+            await page.waitForSelector(exportuserAccountInfoDataBtn);
+            await page.click(exportuserAccountInfoDataBtn, { delay: 1500 }).then(() => {
+                try {
+                    console.log('navUser_Info_tbody -- 用户账号信息 -- 导出数据成功')
+                } catch (error) {
+                    console.log(`navUser_Info_tbody -- 用户账号信息 -- 导出数据失败${error}`)
+                }
+            })
+        };
+
+        await page.click(cleanUserDeviceIdText).then(() => console.log('清空 用户信息查询 输入框的内容'));
     }
     //操作历史记录
-    public async navHistoryRecord(page:Page){
-        await page.waitForSelector();
-        await page.click();
-        await page.waitForSelector();
-        await page.type();
-        await page.click();
-        await page.click();
+    public async navHistoryRecord(
+        page: Page,
+        onClickHistoryLiSelelctor: string,
+        deletePreTabDiv: string,
+        historyDeviceIdInputSearchSelelctor: string,
+        historyDeviceIdText: string,
+        historySearchBtnSlelctor: string,
+        cleanHistoryDeviceIdText: string,
+    ) {
+        console.log('从导航栏中进入 操作历史记录')
+        await page.waitForSelector(onClickHistoryLiSelelctor);
+        await page.click(onClickHistoryLiSelelctor);
+
+        await page.waitForSelector(deletePreTabDiv);
+        await page.click(deletePreTabDiv).then(() => console.log('关闭操作历史记录前一个tab栏'));
+
+        await page.waitForSelector(historyDeviceIdInputSearchSelelctor);
+        await page.type(historyDeviceIdInputSearchSelelctor, historyDeviceIdText, { delay: 500 }).then(() => console.log(`点击操作历史记录 --> 查询条件 deviceid  Input并输入-${historyDeviceIdText}-`));
+
+        await page.click(historySearchBtnSlelctor).then(() => console.log('在操作历史中 点击查询按钮'));
+        await page.click(cleanHistoryDeviceIdText).then(() => console.log('清空 操作历史记录 输入框的内容'));
     }
 }

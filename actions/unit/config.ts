@@ -1,8 +1,9 @@
 export const config = {
     url: 'https://cn-iotquery.coolkit.cn/',
-    account: 'gavin.nie@coolkit.cn',
-    password: '123456',
+    account: 'XXXXX.XXX@XXXXXXX.XX',
+    password: 'XXXXXX',
     deviceIdText: '1000028060',
+    phone: '+8618025316428'
     // leftSelectionTimeText: '2020-03-01',
     // rightSelectionTimeText: '2020-03-05',
 }

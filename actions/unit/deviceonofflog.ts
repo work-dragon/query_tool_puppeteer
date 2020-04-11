@@ -36,6 +36,7 @@ export class Deviceonofflog {
     //从导航栏中点击进入
     public async onClickLionoffLog(
         page: Page,
+        deletePreTabDiv: string,
         onClickONOFFLiSelelctor: string,
         onoffLogdeviceIdInputSearchSelelctor: string,
         deviceIdText: string,
@@ -52,17 +53,23 @@ export class Deviceonofflog {
 
         // waitForSelectorONOFFTbody: string,
         // onoffContent: string,
-        // exportONOFFContnetBtn: string,
+
         deleteONOFFContnetDiv: string,
+        exportONOFFContnetBtn?: string,
+
     ) {
+        console.log('从导航栏中进入 上下线记录查询')
         //点击导航栏中 上下线 Li slector
         await page.waitForSelector(onClickONOFFLiSelelctor)
         await page.click(onClickONOFFLiSelelctor)
 
+        await page.waitForSelector(deletePreTabDiv)
+        await page.click(deletePreTabDiv, { delay: 2500 }).then(() => console.log('关闭前一个tab栏'))
+
         //等待 上下线页面 的搜索框元素出现
         //输入deviceID查询条件
         await page.waitForSelector(onoffLogdeviceIdInputSearchSelelctor)
-        await page.type(onoffLogdeviceIdInputSearchSelelctor, deviceIdText, { delay: 100 })
+        await page.type(onoffLogdeviceIdInputSearchSelelctor, deviceIdText, { delay: 500 })
 
         //选择日期
         // await page.click(clickLeftSelectionTimeSelelctor,{delay: 100})
@@ -85,16 +92,15 @@ export class Deviceonofflog {
         // onoff_Info ? console.log(`Deviceonofflog --> ${onoff_Info}`) : console.log('onoff_Info --查询不到设备上下线记录');
 
         //导出查询数据内容
-        // await page.waitForSelector(exportONOFFContnetBtn)
-        // await page.click(exportONOFFContnetBtn, { delay: 1000 }).then(() => {
-        //     try {
-        //         console.log('Deviceonofflog -- 设备信息 -- 导出数据成功')
-        //     } catch (error) {
-        //         console.log(`Deviceonofflog -- 设备信息 -- 导出数据失败${error}`)
-        //     }
-        // });
-
-        //删除tab栏
-        await page.click(deleteONOFFContnetDiv, { delay: 1000 })
+        if (exportONOFFContnetBtn) {
+            await page.waitForSelector(exportONOFFContnetBtn)
+            await page.click(exportONOFFContnetBtn, { delay: 1000 }).then(() => {
+                try {
+                    console.log('Deviceonofflog -- 设备信息 -- 导出数据成功')
+                } catch (error) {
+                    console.log(`Deviceonofflog -- 设备信息 -- 导出数据失败${error}`)
+                }
+            });
+        }
     }
 }
